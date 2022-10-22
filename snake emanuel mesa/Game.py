@@ -31,14 +31,13 @@ class Game:
             self.food.status = "inactive"
             self.snake.eat()
             self.player.score += 1
-            print(self.player.name)
-            print(self.player.score)
+            
     def drawScore(self, screen):
         font=pygame.font.SysFont("arial", 18)
         font2=pygame.font.SysFont("arial", 14)
-        text=font.render("Score: "+str(self.player.score), True, (255,255,255))
-        text2=font.render("Player: "+str(self.player.name), True, (255,255,255))
-        text3=font2.render("Speed: "+str(self.fps)+" FPS", True, (255,255,255))
+        text=font.render("Score: "+str(self.player.score), True, (123,0,0))
+        text2=font.render("Player: "+str(self.player.name), True, (123,0,0))
+        text3=font2.render("Speed: "+str(self.fps)+" FPS", True, (123,0,0))
         screen.blit(text, (2,20))
         screen.blit(text2, (2,0))
         screen.blit(text3, (2,384))
@@ -74,7 +73,7 @@ class Game:
                  
             pygame.draw.rect(self.screen, self.food.color, (x,y,10,10))
             
-            if self.snake.body[0] in self.snake.body[1]:
+            if self.snake.body[0] in self.snake.body[1:]:
                 return False
                    
             if self.snake.body[0][0]>400 or self.snake.body[0][0]<0 or self.snake.body[0][1]>400 or self.snake.body[0][1]<0:
