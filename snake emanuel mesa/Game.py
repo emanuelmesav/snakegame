@@ -1,9 +1,4 @@
-
-
-
-from cgi import test
 from random import Random
-from turtle import Screen, screensize, width
 from food import Food
 from snake import Snake
 from player import player
@@ -38,7 +33,17 @@ class Game:
             self.player.score += 1
             print(self.player.name)
             print(self.player.score)
-                     
+    def drawScore(self, screen):
+        font=pygame.font.SysFont("arial", 18)
+        font2=pygame.font.SysFont("arial", 14)
+        text=font.render("Score: "+str(self.player.score), True, (255,255,255))
+        text2=font.render("Player: "+str(self.player.name), True, (255,255,255))
+        text3=font2.render("Speed: "+str(self.fps)+" FPS", True, (255,255,255))
+        screen.blit(text, (2,20))
+        screen.blit(text2, (2,0))
+        screen.blit(text3, (2,384))
+ 
+
     def run(self):
         
         pygame.init()
@@ -46,7 +51,7 @@ class Game:
         while True:
             
 
-            self.clock.tick(self.fps)
+            
             #Revisar los eventos y mirar si oprimen el boton
             for event in pygame.event.get():
                 if event.type==pygame.QUIT:
@@ -59,11 +64,13 @@ class Game:
                   
             self.checkKeys()
             self.snake.move()
-            
+            self.clock.tick(self.fps)
+            self.checkEat()  
+            self.drawScore(self.screen)
             if self.food.status=="inactive":
                 x,y=self.food.putFood(x_max=390, y_max=390) 
                 self.food.status="active"
-            self.checkEat()    
+              
                  
             pygame.draw.rect(self.screen, self.food.color, (x,y,10,10))
             
